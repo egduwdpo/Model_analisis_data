@@ -1,484 +1,569 @@
-Deskripsi Program
+# README.md
+
+# Analisis Statistik dan Regresi Menggunakan Python
+
+## Deskripsi Program
 
 Program ini dibuat untuk mempelajari berbagai konsep analisis data menggunakan Python, yaitu:
 
-RMSE (Root Mean Square Error)
-Standard Deviation
-Korelasi
-Regresi Linear
-Regresi Polinomial
-Regresi Multi Variabel
-Visualisasi Data menggunakan Matplotlib
+* RMSE (Root Mean Square Error)
+* Standard Deviation
+* Korelasi
+* Regresi Linear
+* Regresi Polinomial
+* Regresi Multi Variabel
+* Visualisasi Data menggunakan Matplotlib
 
-Library yang digunakan:
+---
 
-NumPy → operasi numerik
-Pandas → pengolahan data
-Matplotlib → visualisasi grafik
-Scikit-Learn → machine learning & evaluasi model
-1. IMPORT LIBRARY
+# Library yang Digunakan
+
+```python
 import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
-Penjelasan
-import numpy as np
+```
 
-Mengimpor library NumPy dan memberi alias np.
+## Penjelasan
 
-NumPy digunakan untuk:
+| Library      | Fungsi                               |
+| ------------ | ------------------------------------ |
+| NumPy        | Operasi matematika dan array numerik |
+| Pandas       | Pengolahan dan analisis data         |
+| Matplotlib   | Visualisasi grafik                   |
+| Scikit-Learn | Machine Learning dan evaluasi model  |
 
-operasi matematika
-array numerik
-statistik
-perhitungan cepat
-import pandas as pd
+---
 
-Mengimpor Pandas dengan alias pd.
+# 1. Menghitung RMSE
 
-Digunakan untuk:
+## Data Aktual dan Prediksi
 
-membuat tabel data
-manipulasi dataset
-analisis data
-from sklearn.metrics import mean_squared_error
-
-Mengambil fungsi mean_squared_error dari Scikit-Learn.
-
-Digunakan untuk menghitung:
-
-MSE
-RMSE
-import matplotlib.pyplot as plt
-
-Mengimpor modul visualisasi Matplotlib.
-
-Digunakan untuk:
-
-membuat grafik
-plot
-chart
-visualisasi statistik
-2. CONTOH RMSE
+```python
 data_aktual = [100, 120, 130, 140, 150]
 data_prediksi = [98, 125, 128, 145, 148]
-Penjelasan
+```
 
-Membuat dua data:
+### Penjelasan
 
-Data	Fungsi
-data_aktual	nilai sebenarnya
-data_prediksi	hasil prediksi model
-Menghitung Error
+* `data_aktual` → data sebenarnya
+* `data_prediksi` → hasil prediksi model
+
+---
+
+## Menghitung Error
+
+```python
 error = data_aktual[i] - data_prediksi[i]
-Logika
+```
 
-Menghitung selisih:
+### Rumus
 
-Error=Aktual−Prediksi
+[
+Error = Aktual - Prediksi
+]
 
-Jika:
+### Logika
 
-positif → prediksi terlalu kecil
-negatif → prediksi terlalu besar
-Menyimpan Error
-errors.append(error)
+* Positif → prediksi terlalu kecil
+* Negatif → prediksi terlalu besar
 
-Menambahkan error ke dalam list.
+---
 
-3. MENGHITUNG RMSE MANUAL
+## Menghitung RMSE Manual
+
+```python
 squared_errors = [e**2 for e in errors]
-Penjelasan
-
-Mengkuadratkan semua error.
-
-Contoh:
-
-(−5)
-2
-=25
-
-Tujuannya:
-
-menghilangkan nilai negatif
-memperbesar error besar
 mean_squared_error_manual = sum(squared_errors) / len(squared_errors)
-
-Menghitung rata-rata error kuadrat.
-
-Rumus:
-
-MSE=
-n
-∑error
-2
-	​
-
 rmse_manual = mean_squared_error_manual ** 0.5
+```
 
-Akar kuadrat dari MSE.
+### Penjelasan
 
-Rumus:
+1. Error dikuadratkan
+2. Dijumlahkan
+3. Dibagi jumlah data
+4. Diakar kuadratkan
 
-RMSE=
-MSE
-	​
+### Rumus RMSE
 
-4. RMSE DENGAN NUMPY
+[
+RMSE = \sqrt{\frac{\sum error^2}{n}}
+]
+
+---
+
+## RMSE Menggunakan NumPy
+
+```python
 rmse_numpy = np.sqrt(np.mean((np.array(data_aktual) - np.array(data_prediksi))**2))
-Penjelasan per bagian
-np.array()
+```
 
-Mengubah list menjadi array NumPy.
+### Penjelasan
 
-data_aktual - data_prediksi
+* `np.array()` → ubah list menjadi array
+* `-` → hitung error
+* `**2` → kuadrat error
+* `np.mean()` → rata-rata
+* `np.sqrt()` → akar kuadrat
 
-Menghitung semua error sekaligus.
+---
 
-**2
+## RMSE Menggunakan Scikit-Learn
 
-Mengkuadratkan error.
-
-np.mean()
-
-Menghitung rata-rata.
-
-np.sqrt()
-
-Menghitung akar kuadrat.
-
-5. RMSE DENGAN SKLEARN
+```python
 rmse_sklearn = np.sqrt(mean_squared_error(data_aktual, data_prediksi))
-Logika
-mean_squared_error() menghitung MSE
-np.sqrt() mengubah menjadi RMSE
-6. STANDARD DEVIATION
+```
+
+### Penjelasan
+
+* `mean_squared_error()` → hitung MSE
+* `np.sqrt()` → ubah menjadi RMSE
+
+---
+
+# 2. Standard Deviation
+
+## Menghitung Mean
+
+```python
 mean = sum(nilai_siswa) / len(nilai_siswa)
-Penjelasan
+```
 
-Menghitung rata-rata data.
+### Rumus
 
-Rumus:
+[
+\bar{x} = \frac{\sum x}{n}
+]
 
-x
-ˉ
-=
-n
-∑x
-	​
+---
 
-Variance
+## Menghitung Variance
+
+```python
 variance = sum((x - mean)**2 for x in nilai_siswa) / len(nilai_siswa)
-Logika
+```
 
-Mengukur penyebaran data dari rata-rata.
+### Penjelasan
 
-Langkah:
+Variance mengukur penyebaran data terhadap rata-rata.
 
-cari selisih data dengan mean
-kuadratkan
-jumlahkan
-bagi jumlah data
-Standard Deviation
+---
+
+## Menghitung Standard Deviation
+
+```python
 std_dev_population = variance ** 0.5
+```
 
-Rumus:
+### Rumus
 
-SD=
-Variance
-	​
+[
+SD = \sqrt{Variance}
+]
 
+### Interpretasi
 
-Semakin besar SD:
+* SD besar → data menyebar
+* SD kecil → data konsisten
 
-data semakin menyebar
+---
 
-Semakin kecil SD:
+# 3. DataFrame Pandas
 
-data semakin konsisten
-7. MEMBUAT DATAFRAME PANDAS
+## Membuat DataFrame
+
+```python
 df = pd.DataFrame(data)
-Penjelasan
+```
+
+### Penjelasan
 
 Mengubah dictionary menjadi tabel.
 
-Contoh:
+---
 
-Bulan	Penjualan
-1	120
-2	135
-8. MENAMBAH KOLOM ERROR
+## Menambahkan Kolom Error
+
+```python
 df['Error'] = df['Penjualan_Aktual'] - df['Penjualan_Prediksi']
-Logika
+```
 
-Membuat kolom baru bernama Error.
+### Penjelasan
 
-9. MENAMBAH SQUARED ERROR
+Membuat kolom error baru.
+
+---
+
+## Menambahkan Squared Error
+
+```python
 df['Squared_Error'] = df['Error'] ** 2
+```
+
+### Penjelasan
 
 Menyimpan error kuadrat.
 
-10. MAE (MEAN ABSOLUTE ERROR)
+---
+
+# 4. Mean Absolute Error (MAE)
+
+```python
 mae = df['Error'].abs().mean()
-Penjelasan
-.abs()
+```
 
-Mengubah error menjadi positif.
+### Rumus
 
-.mean()
+[
+MAE = \frac{\sum |error|}{n}
+]
 
-Menghitung rata-rata.
+### Penjelasan
 
-Rumus:
+* `.abs()` → ubah menjadi positif
+* `.mean()` → rata-rata
 
-MAE=
-n
-∑∣error∣
-	​
+---
 
-11. VISUALISASI MATPLOTLIB
-Membuat Figure
+# 5. Visualisasi Data
+
+## Membuat Figure
+
+```python
 plt.figure(figsize=(12, 5))
+```
+
+### Penjelasan
 
 Membuat area grafik ukuran:
 
-lebar = 12
-tinggi = 5
-Membuat Subplot
+* lebar = 12
+* tinggi = 5
+
+---
+
+## Membuat Subplot
+
+```python
 plt.subplot(1, 2, 1)
+```
 
-Artinya:
+### Penjelasan
 
-1 baris
-2 kolom
-grafik ke-1
-12. LINE PLOT
+* 1 baris
+* 2 kolom
+* grafik ke-1
+
+---
+
+## Membuat Line Plot
+
+```python
 plt.plot(df['Bulan'], df['Penjualan_Aktual'])
-Penjelasan
+```
+
+### Fungsi
 
 Membuat grafik garis.
 
-Parameter:
+---
 
-sumbu X → bulan
-sumbu Y → penjualan
-13. BAR CHART ERROR
+## Membuat Bar Chart
+
+```python
 plt.bar(df['Bulan'], df['Error'])
+```
+
+### Fungsi
 
 Membuat diagram batang error.
 
-14. MENYIMPAN GAMBAR
+---
+
+## Menyimpan Grafik
+
+```python
 plt.savefig('analisis_rmse_sd.png')
+```
 
-Menyimpan grafik ke file PNG.
+### Fungsi
 
-15. FUNCTION PYTHON
+Menyimpan grafik menjadi file PNG.
+
+---
+
+# 6. Function Python
+
+## Membuat Fungsi
+
+```python
 def hitung_metrik(actual, predicted):
-Penjelasan
+```
 
-Membuat fungsi reusable.
+### Fungsi
 
-Keuntungan:
+Membuat kode reusable agar:
 
-kode lebih rapi
-dapat dipanggil berkali-kali
-mudah maintenance
-16. MAPE
+* lebih rapi
+* mudah digunakan ulang
+* mudah maintenance
+
+---
+
+# 7. MAPE (Mean Absolute Percentage Error)
+
+```python
 mape = np.mean(np.abs(errors / actual)) * 100
-Rumus
-MAPE=
-n
-1
-	​
+```
 
-∑
-	​
+### Rumus
 
-actual
-error
-	​
+[
+MAPE = \frac{1}{n}\sum \left|\frac{error}{actual}\right| \times 100
+]
 
-	​
+### Fungsi
 
-×100
+Mengukur error dalam bentuk persen.
 
-Digunakan untuk:
+---
 
-mengukur error dalam persen
-17. R-SQUARED
+# 8. R-Squared
+
+```python
 r_squared = 1 - (ss_res / ss_tot)
-Penjelasan
-ss_res
+```
 
-Jumlah error model.
+### Rumus
 
-ss_tot
+[
+R^2 = 1 - \frac{SS_{res}}{SS_{tot}}
+]
 
-Total variasi data.
+### Interpretasi
 
-Rumus
-R
-2
-=1−
-SS
-tot
-	​
+* mendekati 1 → model bagus
+* mendekati 0 → model buruk
 
-SS
-res
-	​
+---
 
-	​
+# 9. Korelasi Pearson
 
-
-Interpretasi:
-
-mendekati 1 → model bagus
-mendekati 0 → model buruk
-18. KORELASI PEARSON
+```python
 korelasi_numpy = np.corrcoef(x, y)[0, 1]
-Fungsi
+```
+
+### Fungsi
 
 Mengukur hubungan antar variabel.
 
-Nilai:
+### Nilai Korelasi
 
-+1 → sangat positif
-0 → tidak ada hubungan
--1 → sangat negatif
-19. INTERPRETASI KORELASI
-if r_abs >= 0.80:
+| Nilai | Arti               |
+| ----- | ------------------ |
+| 1     | Positif sempurna   |
+| 0     | Tidak ada hubungan |
+| -1    | Negatif sempurna   |
 
-Digunakan untuk menentukan:
+---
 
-sangat kuat
-kuat
-sedang
-lemah
-20. MATRIX KORELASI
-matriks_korelasi = df[kolom_analisis].corr()
-Penjelasan
+# 10. Korelasi Spearman
 
-Menghitung hubungan semua kolom numerik.
-
-21. KORELASI SPEARMAN
+```python
 corr(method='spearman')
+```
 
-Digunakan jika:
+### Fungsi
 
-data tidak normal
-data ranking
-22. SCATTER PLOT
+Digunakan untuk:
+
+* data tidak normal
+* data ranking
+
+---
+
+# 11. Scatter Plot
+
+```python
 axes[0].scatter(x, y)
+```
+
+### Fungsi
 
 Menampilkan hubungan antar titik data.
 
-23. GARIS REGRESI
-m, b = np.polyfit(x, y, 1)
-Penjelasan
-m
+---
 
-Slope / kemiringan.
+# 12. Regresi Linear
 
-b
+## Membuat Model
 
-Intercept.
-
-Persamaan:
-
-y=mx+b
-24. REGRESI LINEAR
+```python
 model_linear = LinearRegression()
+```
 
-Membuat model regresi linear.
+---
 
-Training Model
+## Training Model
+
+```python
 model_linear.fit(x, y)
+```
+
+### Fungsi
 
 Melatih model menggunakan data.
 
-Prediksi
+---
+
+## Prediksi
+
+```python
 model_linear.predict(x)
+```
+
+### Fungsi
 
 Menghasilkan prediksi.
 
-25. REGRESI POLINOMIAL
+---
+
+## Persamaan Regresi Linear
+
+[
+y = mx + b
+]
+
+Keterangan:
+
+* `m` = slope
+* `b` = intercept
+
+---
+
+# 13. Regresi Polinomial
+
+```python
 PolynomialFeatures(derajat)
+```
 
-Mengubah:
+### Fungsi
 
-linear
-menjadi:
-kuadrat
-kubik
-polynomial
-Contoh Derajat 2
-y=ax
-2
-+bx+c
-26. REGRESI MULTI VARIABEL
+Mengubah model linear menjadi:
+
+* kuadrat
+* kubik
+* polynomial
+
+---
+
+## Contoh Persamaan Derajat 2
+
+[
+y = ax^2 + bx + c
+]
+
+---
+
+# 14. Regresi Multi Variabel
+
+```python
 X_multi = df[['Biaya_Iklan', 'Jumlah_Pembeli']]
+```
+
+### Fungsi
 
 Menggunakan lebih dari satu variabel input.
 
-Persamaan
-Y=aX
-1
-	​
+---
 
-+bX
-2
-	​
+## Persamaan
 
-+c
-27. VISUALISASI SEMUA MODEL
+[
+Y = aX_1 + bX_2 + c
+]
+
+---
+
+# 15. Visualisasi Semua Model
+
+```python
 fig, axes = plt.subplots(2, 2)
+```
+
+### Fungsi
 
 Membuat:
 
-2 baris
-2 kolom
-total 4 grafik
-28. RINGKASAN MODEL
+* 2 baris
+* 2 kolom
+* total 4 grafik
+
+---
+
+# 16. Ringkasan Model
+
+```python
 ringkasan = pd.DataFrame({...})
+```
+
+### Fungsi
 
 Membuat tabel perbandingan model.
 
-29. MENENTUKAN MODEL TERBAIK
+---
+
+# 17. Menentukan Model Terbaik
+
+```python
 model_terbaik = ringkasan.loc[ringkasan['R²'].idxmax(), 'Model']
-Logika
-mencari R² tertinggi
-memilih model terbaik
-30. KESIMPULAN PROGRAM
+```
 
-Program ini mempelajari:
+### Logika
 
-Materi	Fungsi
-RMSE	Mengukur error prediksi
-Standard Deviation	Mengukur penyebaran data
-Korelasi	Mengukur hubungan data
-Regresi Linear	Prediksi linear
-Regresi Polynomial	Prediksi non-linear
-Multi Variabel	Prediksi banyak faktor
-Visualisasi	Menampilkan data secara grafis
-Output yang Dihasilkan
+* mencari nilai R² tertinggi
+* menentukan model terbaik
+
+---
+
+# Output Program
 
 Program menghasilkan:
 
-Tabel analisis
-Nilai statistik
-Nilai korelasi
-Nilai regresi
-Grafik PNG:
-analisis_rmse_sd.png
-analisis_korelasi.png
-kurva_regresi.png
-Cara Menjalankan
-Install Library
+* Tabel analisis
+* Nilai statistik
+* Nilai korelasi
+* Grafik PNG:
+
+  * `analisis_rmse_sd.png`
+  * `analisis_korelasi.png`
+  * `kurva_regresi.png`
+
+---
+
+# Cara Menjalankan Program
+
+## Install Dependency
+
+```bash
 pip install numpy pandas matplotlib scikit-learn
-Jalankan Program
+```
+
+---
+
+## Menjalankan Program
+
+```bash
 python nama_file.py
-Struktur Konsep Utama
+```
+
+---
+
+# Struktur Analisis Program
+
+```text
 Data
  ↓
 Error
@@ -492,3 +577,23 @@ Regresi
 Visualisasi
  ↓
 Evaluasi Model
+```
+
+---
+
+# Kesimpulan
+
+Program ini mempelajari konsep:
+
+* evaluasi model prediksi
+* statistik dasar
+* analisis hubungan data
+* machine learning sederhana
+* visualisasi data
+
+Cocok digunakan untuk:
+
+* pembelajaran data science dasar
+* tugas kuliah statistik
+* analisis penjualan
+* penelitian sederhana
